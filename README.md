@@ -11,7 +11,6 @@ This is an Instagram scraper written in Python that can be used to scrape Instag
 3. nano ig-credentials
 4. Enter your instagram username and password by this schema:
                                                 username:password
-                                                
                                                 exmample =>
                                                 natgeo:Thepassword1234
 

@@ -2,8 +2,9 @@
 from instaloader import Instaloader, Profile
 import datetime
 import const
+res = []
 
-def get_data(L, inst_username):
+def get_data(L, inst_username: str) -> list[dict]:
     profile = Profile.from_username(L.context, inst_username)
 
     PostFolowerPostShare = profile.followers
@@ -24,4 +25,5 @@ def get_data(L, inst_username):
             'PostComment': one_post.comments,
             'PostDiscription': one_post.caption,
         }
-    return True
+        res.append(each_post)
+    return res

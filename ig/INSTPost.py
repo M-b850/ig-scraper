@@ -3,6 +3,7 @@ from os.path import dirname
 from instaloader import Instaloader
 
 from functions import get_data
+from exporter import export_json
 
 DIR = dirname(dirname(__file__))
 FILE = F'{DIR}/docs/ig-credentials'
@@ -15,6 +16,7 @@ PASSWORD = user_credentials.split(':')[1]
 L = Instaloader()
 L.login(USERNAME, PASSWORD)
 if L.test_login():
-    print(L.test_login(), 'has logined successfully. (＾▽＾)')
+    print(L.test_login(), 'has logined successfully. (＾▽＾)\n\n')
 
-get_data(L, 'kendalljenner')
+result = get_data(L, 'nebig.app')
+# export_json(result)

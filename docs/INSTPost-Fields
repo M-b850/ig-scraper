@@ -1,4 +1,4 @@
-1. InfoUpdateDate
+1. InfoUpdateDate [X]
 2. InsPageLink [X]
 3. PostFolowerPostShare [X]
 4. PostFolowingPostShare [X]
@@ -8,6 +8,6 @@
 8. PostImagelink [X]
 9. PostLike [X]
 10. PostComment [X]
-11. PostSaveCount ?
-12. PostSendCount ?
+11. PostSaveCount [X]
+12. PostSendCount [X]
 13. PostDiscription [X]

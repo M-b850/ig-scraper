@@ -8,7 +8,7 @@ This is an Instagram scraper written in Python that can be used to scrape Instag
 
 1. cd ig-scraper/
 2. touch docs/ig-credentials
-3. nano ig-credentials
+3. nano docs/ig-credentials
 4. Enter your instagram username and password by this schema:
                                                 username:password
                                                 exmample =>

@@ -2,10 +2,10 @@
 from instaloader import Instaloader, Profile
 import datetime
 import const
-from os.path import dirname
+from os.path import dirname, abspath
 
 
-DIR = dirname(dirname(__file__))
+DIR = dirname(dirname(abspath(__file__)))
 res = []
 
 def file_name(realse_date: datetime):

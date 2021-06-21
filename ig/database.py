@@ -1,7 +1,7 @@
 from pymongo import MongoClient
 
 # Change the link if you're using diffrent database
-db_address = "mongodb://admin:password@localhost:8000/admin?authSource=admin"
+db_address = "mongodb://admin:password@localhost:8080/admin?authSource=admin"
 
 class DB:
 

@@ -18,6 +18,7 @@ PASSWORD = user_credentials.split(':')[1]
 """
 # Get instance
 L = Instaloader()
+
 # L.login(USERNAME, PASSWORD)
 L.load_session_from_file('pharmasearch', FILE)
 if L.test_login():
@@ -34,9 +35,7 @@ mydb.posts_col()
 count = profile.followees
 
 with alive_bar(count) as bar:
-    
+    # Progress bar    
     for acc in profile.get_followees():
         result = get_data(L, mydb, acc.username)
-        # all.append(result)
         bar()
-

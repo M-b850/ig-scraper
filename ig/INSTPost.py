@@ -45,4 +45,3 @@ with alive_bar(count) as bar:
         # insomnia = random.randint(150, 300)
         # print('\n~~~~Page Insomnia is:', insomnia)
         bar()
-

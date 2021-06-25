@@ -33,6 +33,11 @@ def get_data(L, db, inst_username):
         """
         filter = {'InsPostlink': InsPostlink}
         if not db.find_one(filter):
+            # Sleeep
+            insomnia = random.randint(1, 4)
+            print('\n~~~~Post Insomnia is:', insomnia)
+            time.sleep(insomnia)
+            
             each_post = {
                 'InfoUpdateDate': datetime.datetime.utcnow(),
                 'InsPageLink': const.IG_PROFILE + inst_username,
@@ -59,8 +64,4 @@ def get_data(L, db, inst_username):
             each_post['PostImagelink'] = f'{DIR}/' + image_address + '.jpg'
             
             db.insert_one(each_post)  # Insert to Database
-
-        insomnia = random.randint(1, 4)
-        print('\n~~~~Post Insomnia is:', insomnia)
-        time.sleep(insomnia)
     return True

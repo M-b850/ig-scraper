@@ -1,4 +1,6 @@
 from os.path import dirname, abspath
+import time
+import random
 
 from instaloader import Instaloader, Profile
 from alive_progress import alive_bar
@@ -34,8 +36,14 @@ mydb.posts_col()
 
 count = profile.followees
 
+
 with alive_bar(count) as bar:
     # Progress bar    
+
     for acc in profile.get_followees():
         result = get_data(L, mydb, acc.username)
+        insomnia = random.randint(150, 300)
+        print('\n~~~~Page Insomnia is:', insomnia)
+        time.sleep(insomnia)
         bar()
+

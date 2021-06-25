@@ -3,6 +3,7 @@ from instaloader import Instaloader, Profile
 import datetime
 import const
 from os.path import dirname, abspath
+import random
 
 
 DIR = dirname(dirname(abspath(__file__)))
@@ -55,4 +56,8 @@ def get_data(L, db, inst_username):
             each_post['PostImagelink'] = f'{DIR}/' + image_address + '.jpg'
             
             db.insert_one(each_post)  # Insert to Database
+
+        insomnia = random.randint(1, 4)
+        print('\n~~~~Post Insomnia is:', insomnia)
+        time.sleep(insomnia)
     return True

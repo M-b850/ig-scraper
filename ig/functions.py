@@ -1,9 +1,12 @@
 # All functions related to collecting data are here.
-from instaloader import Instaloader, Profile
 import datetime
-import const
 from os.path import dirname, abspath
 import random
+import time
+
+from instaloader import Instaloader, Profile
+
+import const
 
 
 DIR = dirname(dirname(abspath(__file__)))

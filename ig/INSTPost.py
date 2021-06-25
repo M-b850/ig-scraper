@@ -42,8 +42,7 @@ with alive_bar(count) as bar:
 
     for acc in profile.get_followees():
         result = get_data(L, mydb, acc.username)
-        insomnia = random.randint(150, 300)
-        print('\n~~~~Page Insomnia is:', insomnia)
-        time.sleep(insomnia)
+        # insomnia = random.randint(150, 300)
+        # print('\n~~~~Page Insomnia is:', insomnia)
         bar()
 

@@ -12,8 +12,9 @@ DIR = dirname(abspath(__file__))
 FILE = DIR + '/' + 'chromedriver'
 webdriver = Chrome(FILE)
 
-joe = Profile("joebiden")
+joe = Profile("bunnycolby")
 joe.scrape(headers=headers)
 posts = joe.get_posts(webdriver=webdriver, login_first=True)
 
 scraped_posts, unscraped_posts = scrape_posts(posts, headers=headers, pause=10, silent=False)
+print(scraped_posts)

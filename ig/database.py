@@ -19,9 +19,19 @@ class DB:
 		self.db = self.client[db_name]
 		return self.db
 
+	def comments_col(self):
+		""" Select default collection as comments. """
+		self.col = self.db.comments
+		return self.col
+
 	def posts_col(self):
 		""" Select default collection as posts. """
 		self.col = self.db.posts
+		return self.col
+
+	def refinstagram_col(self):
+		""" Select default collection as refinstagram. """
+		self.col = self.db.refinstagram
 		return self.col
 
 	def insert_one(self, doc):

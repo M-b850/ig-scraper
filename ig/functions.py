@@ -63,7 +63,7 @@ def get_data(L, db, inst_username):
 
         if not db.find_one(filter):
             # Sleeep
-            # insomnia = random.randint(1, 4)
+            # insomnia = random.uniform(0.5, 1)
             # print('\n~~~~Post Insomnia is:', insomnia)
             # time.sleep(insomnia)
             
@@ -102,7 +102,8 @@ def get_data(L, db, inst_username):
         'BioText': profile.biography,
         'FolowerAtUpdate': PostFolowerPostShare,
         'FolowingAtUpdate': PostFolowingPostShare,
-        'PostCount': sum(1 for _ in all_posts) + 1,
-        'SiteLink': profile.external_url
+        'PostCount': sum(1 for _ in all_posts),
+        'SiteLink': profile.external_url,
+        'Check': True,
     }
     return res

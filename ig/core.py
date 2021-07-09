@@ -8,6 +8,7 @@ from alive_progress import alive_bar
 from functions import get_data
 from exporter import export_json
 from database import DB
+import const
 
 DIR = dirname(dirname(abspath(__file__)))
 
@@ -50,13 +51,29 @@ with alive_bar(count) as bar:
         # profile.get_followees()
         username_list = f.readlines()    
         for acc in username_list:
-            print(acc.strip())
-            result = get_data(L, mydb, acc.strip())
+            acc = acc.strip()
+            
+            ig_uni_key = const.IG_PROFILE + acc
+            
+            mydb.refinstagram_col()
+            filter = {'InsPageLink': ig_uni_key}
+            status = mydb.find_one(filter)
+            try:
+                if status['Check'] == True:
+                    print('Passed.')
+                    continue
+            except KeyError:
+                pass
+            except TypeError:
+                pass
+
+            print(acc)
+            result = get_data(L, mydb, acc)
             if result:
                 mydb.refinstagram_col()
-                filter = {'InsPageLink': result['InsPageLink']}
-                mydb.find_delete(filter)
+                mydb.delete_one(status)
                 mydb.insert_one(result)
-            # insomnia = random.randint(150, 300)
+
+            # insomnia = random.randint(100, 150)
             # print('\n~~~~Page Insomnia is:', insomnia)
             bar()

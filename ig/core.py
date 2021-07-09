@@ -71,7 +71,8 @@ with alive_bar(count) as bar:
             result = get_data(L, mydb, acc)
             if result:
                 mydb.refinstagram_col()
-                mydb.delete_one(status)
+                if status:
+                    mydb.delete_one(status)
                 mydb.insert_one(result)
 
             # insomnia = random.randint(100, 150)

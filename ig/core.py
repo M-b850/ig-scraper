@@ -10,7 +10,6 @@ from exporter import export_json
 from database import DB
 
 DIR = dirname(dirname(abspath(__file__)))
-FILE = DIR + '/' + 'yourboy.newton'
 
 """
 FILE = f'{DIR}/docs/ig-credentials'
@@ -22,7 +21,17 @@ PASSWORD = user_credentials.split(':')[1]
 L = Instaloader()
 
 # L.login(USERNAME, PASSWORD)
-L.load_session_from_file('yourboy.newton', FILE)
+'''
+Accounts:
+jackrobinson6750
+lanakoben
+mohammadalhamdon
+pharmasearch
+yourboy.newton
+'''
+acc_name = 'jackrobinson6750'
+FILE = DIR + '/Accounts/' + acc_name
+L.load_session_from_file(acc_name, FILE)
 if L.test_login():
     print(L.test_login(), 'has logined successfully. (＾ ▽ ＾)\n')
 

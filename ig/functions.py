@@ -62,7 +62,6 @@ def get_data(L, db, inst_username):
         filter = {'InsPostlink': str(InsPostlink)}
 
         if not db.find_one(filter):
-            print(filter)
             # Sleeep
             # insomnia = random.randint(1, 4)
             # print('\n~~~~Post Insomnia is:', insomnia)

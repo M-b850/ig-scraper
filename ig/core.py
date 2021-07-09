@@ -45,15 +45,18 @@ mydb.select_database('instagram')
 count = profile.followees
 
 with alive_bar(count) as bar:
-    # Progress bar    
-    for acc in profile.get_followees():
-        print(acc.username)
-        result = get_data(L, mydb, acc.username)
-        if result:
-            mydb.refinstagram_col()
-            filter = {'InsPageLink': result['InsPageLink']}
-            mydb.find_delete(filter)
-            mydb.insert_one(result)
-        # insomnia = random.randint(150, 300)
-        # print('\n~~~~Page Insomnia is:', insomnia)
-        bar()
+    with open('utils/usernames.txt') as f:
+        # Progress bar
+        # profile.get_followees()
+        username_list = f.readlines()    
+        for acc in username_list:
+            print(acc.strip())
+            result = get_data(L, mydb, acc.strip())
+            if result:
+                mydb.refinstagram_col()
+                filter = {'InsPageLink': result['InsPageLink']}
+                mydb.find_delete(filter)
+                mydb.insert_one(result)
+            # insomnia = random.randint(150, 300)
+            # print('\n~~~~Page Insomnia is:', insomnia)
+            bar()

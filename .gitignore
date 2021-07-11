@@ -131,3 +131,4 @@ dmypy.json
 .vscode/
 ig-credentials
 help.txt
+.DS_Store

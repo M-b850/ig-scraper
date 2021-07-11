@@ -61,6 +61,7 @@ with alive_bar(count) as bar:
             try:
                 if status['Check'] == True:
                     print('Passed.')
+                    bar()
                     continue
             except KeyError:
                 pass

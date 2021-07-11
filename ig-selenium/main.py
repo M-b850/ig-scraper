@@ -1,5 +1,6 @@
 import os
 import time
+import requests
 import datetime
 
 from alive_progress import alive_bar
@@ -34,43 +35,78 @@ webdriver.find_element_by_xpath("//input[@name='password']").send_keys(password)
 webdriver.find_element_by_xpath("//button[@type='submit']").click()
 time.sleep(10)
 
-def get_data(mydb, username):
+def download(url, name):
+    session = requests.Session()
+    r = session.get(url)
+    with open(name, 'wb') as outfile:
+        outfile.write(r.content)
+
+def file_name(realse_date):
+    suffix = '_'
+    realse_date = realse_date.replace(':', '_').replace(' ', '_')
+    return realse_date
+
+def get_data(db, username):
     instagram_profile = Profile(username)
     instagram_profile.scrape(headers=headers)
     posts = instagram_profile.get_posts(webdriver=webdriver)
 
-    scraped_posts, unscraped_posts = scrape_posts(posts, headers=headers, pause=10, silent=False)
-
+    scraped_posts, unscraped_posts = scrape_posts(posts, headers=headers, pause=5, silent=False)
+    
+    db.posts_col()
     for p in scraped_posts:
-        post = {
-            'InfoUpdateDate': datetime.datetime.utcnow(),
-            'InsPageLink': IG_PROFILE + p.username,
-            'PostFolowerPostShare': instagram_profile.followers,
-            'PostFolowingPostShare': instagram_profile.following,
-            'PostCount': len(posts),
-            'RelaseDate': p.upload_date,
-            'InsPostlink': IG_URL + p.shortcode,
-            'PostImagelink': p.display_url,
-            'PostLike': p.likes,
-            'PostComment': p.comments,
-            'PostSaveCount': None,
-            'PostSendCount': None,
-            'PostDiscription': p.caption,
-        }
+        
+        InsPostlink = IG_URL + p.shortcode
+        filter = {'InsPostlink': str(InsPostlink)}
+        if not db.find_one(filter):
+            post = {
+                'InfoUpdateDate': datetime.datetime.utcnow(),
+                'InsPageLink': IG_PROFILE + username,
+                'PostFolowerPostShare': instagram_profile.followers,
+                'PostFolowingPostShare': instagram_profile.following,
+                'PostCount': len(posts),
+                'RelaseDate': p.upload_date,
+                'InsPostlink': IG_URL + p.shortcode,
+                'PostImagelink': p.display_url,
+                'PostLike': p.likes,
+                'PostComment': p.comments,
+                'PostSaveCount': None,
+                'PostSendCount': None,
+                'PostDiscription': p.caption,
+            }
+            
+            _file_name = file_name(str(post['RelaseDate'])) + \
+                        '_UTC' + f'_{username}'
+            image_address = f'media/{_file_name}'            
+            filename = f'{image_address}.jpg'
+            download(p.display_url, filename)
 
-'''
+            post['PostImagelink'] = '/root/code/ig-scraper/' + image_address + '.jpg'
+
+            db.insert_one(post)  # Insert to Database
+    res = {
+    'InsPageLink': IG_PROFILE + username,
+    'InsPageName': username,
+    'BioText': instagram_profile.biography,
+    'FolowerAtUpdate': instagram_profile.followers,
+    'FolowingAtUpdate': instagram_profile.following,
+    'PostCount': instagram_profile.posts,
+    'SiteLink': instagram_profile.external_url,
+    'Check': True,
+    }
+    return res
 
 # Database setUp.
 mydb = DB()
 mydb.connect()
-mydb.select_database('instagram')
+mydb.select_database('instagram_test')
 
 with alive_bar(4325) as bar:
     with open('usernames.txt') as f:
         username_list = f.readlines()    
         for acc in username_list:
             acc = acc.strip()
-            
+
             ig_uni_key = IG_PROFILE + acc
             
             mydb.refinstagram_col()
@@ -89,12 +125,10 @@ with alive_bar(4325) as bar:
             print(acc)
             result = get_data(mydb, acc)
 
+            if result:
+                mydb.refinstagram_col()
+                if status:
+                    mydb.delete_one(status)
+                mydb.insert_one(result)
 
-            # insomnia = random.randint(100, 150)
-            # print('\n~~~~Page Insomnia is:', insomnia)
             bar()
-            
-            '''
-
-mydb = 1
-get_data(mydb, 'bunnycolby')

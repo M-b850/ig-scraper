@@ -76,6 +76,6 @@ with alive_bar(count) as bar:
                     mydb.delete_one(status)
                 mydb.insert_one(result)
 
-            # insomnia = random.randint(100, 150)
-            # print('\n~~~~Page Insomnia is:', insomnia)
+            insomnia = random.randint(100, 150)
+            print('\n~~~~Page Insomnia is:', insomnia)
             bar()

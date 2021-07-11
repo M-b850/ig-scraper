@@ -63,9 +63,9 @@ def get_data(L, db, inst_username):
 
         if not db.find_one(filter):
             # Sleeep
-            # insomnia = random.uniform(0.5, 1)
-            # print('\n~~~~Post Insomnia is:', insomnia)
-            # time.sleep(insomnia)
+            insomnia = random.uniform(3, 10)
+            print('\n~~~~Post Insomnia is:', insomnia)
+            time.sleep(insomnia)
             
             each_post = {
                 'InfoUpdateDate': datetime.datetime.utcnow(),
@@ -91,7 +91,7 @@ def get_data(L, db, inst_username):
                 each_post['PostImagelink'],
                 each_post['RelaseDate'],
             )
-            each_post['PostImagelink'] = f'{DIR}/' + image_address + '.jpg'
+            each_post['PostImagelink'] = '/root/code/ig-scraper/' + image_address + '.jpg'
             
             db.insert_one(each_post)  # Insert to Database
 

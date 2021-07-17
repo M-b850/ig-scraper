@@ -15,7 +15,7 @@ IG_PROFILE = 'http://instagram.com/' # IG_PROFILE + username = profile url
 
 headers = {
     "user-agent": "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Mobile Safari/537.36 Edg/87.0.664.57",
-    "cookie": "sessionid=47914511585%3AUjbHBFROUTyDfB%3A7"
+    "cookie": "sessionid=48607609727%3ARbkUhXL7rxCt56%3A28;"
 }
 username = "mohammadalhamdon"
 password = "Mb803613"
@@ -24,9 +24,9 @@ options = Options()
 options.add_argument("--headless")
 
 geckodriver = os.getcwd() +"/geckodriver"
-webdriver = Firefox(options=options, executable_path=geckodriver)
-# webdriver = Firefox(executable_path=geckodriver)
-
+# webdriver = Firefox(options=options, executable_path=geckodriver)
+webdriver = Firefox(executable_path=geckodriver)
+'''
 getdriver = ("https://www.instagram.com/accounts/login/")
 webdriver.get(getdriver)
 
@@ -34,7 +34,7 @@ webdriver.find_element_by_xpath("//input[@name='username']").send_keys(username)
 webdriver.find_element_by_xpath("//input[@name='password']").send_keys(password)
 webdriver.find_element_by_xpath("//button[@type='submit']").click()
 time.sleep(10)
-
+'''
 def download(url, name):
     session = requests.Session()
     r = session.get(url)
@@ -49,7 +49,7 @@ def file_name(realse_date):
 def get_data(db, username):
     instagram_profile = Profile(username)
     instagram_profile.scrape(headers=headers)
-    posts = instagram_profile.get_posts(webdriver=webdriver)
+    posts = instagram_profile.get_recent_posts(webdriver=webdriver, login_first=True)
 
     scraped_posts, unscraped_posts = scrape_posts(posts, headers=headers, pause=5, silent=False)
     

@@ -24,8 +24,8 @@ options = Options()
 options.add_argument("--headless")
 
 geckodriver = os.getcwd() +"/geckodriver"
-# webdriver = Firefox(options=options, executable_path=geckodriver)
-webdriver = Firefox(executable_path=geckodriver)
+webdriver = Firefox(options=options, executable_path=geckodriver)
+# webdriver = Firefox(executable_path=geckodriver)
 '''
 getdriver = ("https://www.instagram.com/accounts/login/")
 webdriver.get(getdriver)
@@ -49,7 +49,7 @@ def file_name(realse_date):
 def get_data(db, username):
     instagram_profile = Profile(username)
     instagram_profile.scrape(headers=headers)
-    posts = instagram_profile.get_recent_posts(webdriver=webdriver, login_first=True)
+    posts = instagram_profile.get_recent_posts()
 
     scraped_posts, unscraped_posts = scrape_posts(posts, headers=headers, pause=5, silent=False)
     
@@ -108,7 +108,7 @@ with alive_bar(4325) as bar:
             acc = acc.strip()
 
             ig_uni_key = IG_PROFILE + acc
-            
+
             mydb.refinstagram_col()
             filter = {'InsPageLink': ig_uni_key}
             status = mydb.find_one(filter)

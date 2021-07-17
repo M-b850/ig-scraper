@@ -1,12 +1,36 @@
-import requests
+import os
+import time
 
-p = 'https://scontent-sof1-1.cdninstagram.com/v/t51.2885-15/sh0.08/e35/s750x750/213266039_401194054626389_8409422865125462248_n.jpg?_nc_ht=scontent-sof1-1.cdninstagram.com&_nc_cat=105&_nc_ohc=-sxCRp0y858AX84fFGd&edm=APU89FABAAAA&ccb=7-4&oh=54418f2952f0ab42ec69a48f4cf117f9&oe=60F13FC8&_nc_sid=86f79a'
-filename = 'hloas.jpg'
+from instascrape import *
 
-def download(url, name):
-    session = requests.Session()
-    r = session.get(url)
-    with open(name, 'wb') as outfile:
-        outfile.write(r.content)
+from selenium.webdriver import Firefox
+from selenium.webdriver.firefox.options import Options
 
-download(p, filename)
+IG_URL = 'http://instagram.com/p/' # IG_URL + shortocde = post url
+IG_PROFILE = 'http://instagram.com/' # IG_PROFILE + username = profile url
+
+headers = {
+    "user-agent": "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Mobile Safari/537.36 Edg/87.0.664.57",
+    "cookie": "sessionid=47914511585%3AUjbHBFROUTyDfB%3A7"
+}
+username = "mohammadalhamdon"
+password = "Mb803613"
+
+options = Options()
+options.add_argument("--headless")
+
+geckodriver = os.getcwd() +"/geckodriver"
+webdriver = Firefox(executable_path=geckodriver)
+# webdriver = Firefox(executable_path=geckodriver)
+
+getdriver = ("https://www.instagram.com/accounts/login/")
+webdriver.get(getdriver)
+time.sleep(10)
+webdriver.find_element_by_xpath("//button[text()='Accept All']").click()
+time.sleep(10)
+
+
+webdriver.find_element_by_xpath("//input[@name='username']").send_keys(username)
+webdriver.find_element_by_xpath("//input[@name='password']").send_keys(password)
+webdriver.find_element_by_xpath("//button[@type='submit']").click()
+time.sleep(10)
